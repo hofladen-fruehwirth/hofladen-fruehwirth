@@ -1,0 +1,1 @@
+const e=[{id:"fleisch",label:"Fleisch"},{id:"wurst",label:"Wurst"},{id:"eier",label:"Eier"},{id:"obst",label:"Obst & Gemüse"},{id:"getraenk",label:"Getränke"},{id:"aufstrich",label:"Aufstriche"},{id:"geschenk",label:"Geschenke"}];export{e as c};
