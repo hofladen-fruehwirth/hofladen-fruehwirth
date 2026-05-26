@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+
+onMounted(() => {
+  const saved = localStorage.getItem('theme')
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark')
+  }
+})
 </script>
 
 <template>

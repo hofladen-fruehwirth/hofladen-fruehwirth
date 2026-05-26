@@ -10,7 +10,7 @@ const route = useRoute()
 const product = ref<Product | null>(null)
 const notFound = ref(false)
 
-const imgSrc = computed(() => product.value?.image || categoryImages[product.value?.category || 'fleisch'])
+const imgSrc = computed(() => categoryImages[product.value?.category || 'fleisch'])
 
 onMounted(async () => {
   const id = route.params.id as string
@@ -39,6 +39,7 @@ onMounted(async () => {
           <h1 class="detail-title">{{ product.name }}</h1>
           <p class="detail-desc">{{ product.description }}</p>
           <p class="detail-price">{{ product.price }}</p>
+          <p class="detail-allergen">Bei unverpackten Produkten erhalten Sie Auskunft zu Allergenen und Inhaltsstoffen direkt im Geschäft. Bei vorverpackten Waren finden Sie die Informationen auf dem jeweiligen Etikett.</p>
         </div>
       </div>
     </div>
@@ -71,7 +72,7 @@ onMounted(async () => {
 .back-btn {
   background: none;
   border: none;
-  color: #7c9128;
+  color: var(--accent);
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 500;
@@ -91,7 +92,7 @@ onMounted(async () => {
 }
 
 .detail-image {
-  background: #f5f6fa;
+  background: var(--bg-surface);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -104,8 +105,8 @@ onMounted(async () => {
 
 .detail-category {
   display: inline-block;
-  background: #dfe6e9;
-  color: #636e72;
+  background: var(--border);
+  color: var(--text-muted);
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -116,13 +117,13 @@ onMounted(async () => {
 
 .detail-title {
   font-size: 1.75rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 16px;
 }
 
 .detail-desc {
   font-size: 1.05rem;
-  color: #636e72;
+  color: var(--text-muted);
   line-height: 1.8;
   margin-bottom: 20px;
 }
@@ -130,7 +131,14 @@ onMounted(async () => {
 .detail-price {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #7c9128;
+  color: var(--accent);
+}
+
+.detail-allergen {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 12px;
+  font-style: italic;
 }
 
 .not-found {
@@ -140,19 +148,19 @@ onMounted(async () => {
 
 .not-found h2 {
   font-size: 1.5rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 8px;
 }
 
 .not-found p {
-  color: #636e72;
+  color: var(--text-muted);
   margin-bottom: 24px;
 }
 
 .loading {
   text-align: center;
   padding: 64px;
-  color: #636e72;
+  color: var(--text-muted);
 }
 
 @media (max-width: 768px) {

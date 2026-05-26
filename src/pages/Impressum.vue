@@ -20,12 +20,12 @@ const router = useRouter()
       <div class="container">
         <div class="legal-card">
           <section class="legal-section">
-            <h2>Angaben gemäß § 5 TMG</h2>
+            <h2>Angaben gemäß § 5 E-Commerce-Gesetz (ECG)</h2>
             <div class="info-grid">
               <div class="info-block">
                 <h3>Betreiber</h3>
                 <p>
-                  <strong>Fam. Frühwirth</strong><br />
+                  <strong>Bernhard Frühwirth</strong><br />
                   Hauptstraße 18<br />
                   3442 Asparn<br />
                   Österreich
@@ -54,7 +54,6 @@ const router = useRouter()
           <section class="legal-section">
             <h2>Branchenspezifische Angaben</h2>
             <p>
-              <strong>UID-Nummer:</strong> ATU12345678<br />
               <strong>Berufsbezeichnung:</strong> Landwirtschaftlicher Betrieb<br />
               <strong>Zuständige Kammer:</strong> Landwirtschaftskammer Niederösterreich
             </p>
@@ -64,7 +63,7 @@ const router = useRouter()
             <h2>Streitschlichtung</h2>
             <p>
               Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-              <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>
+              <a href="https://consumer-redress.ec.europa.eu" target="_blank" rel="noopener">https://consumer-redress.ec.europa.eu</a>
             </p>
             <p>
               Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
@@ -91,6 +90,10 @@ const router = useRouter()
   padding: 64px 20px 48px;
 }
 
+[data-theme="dark"] .legal-hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+}
+
 .label-wrapper {
   display: flex;
   align-items: center;
@@ -102,14 +105,14 @@ const router = useRouter()
 .label-line {
   width: 40px;
   height: 2px;
-  background: #b5cc3a;
+  background: var(--accent-light);
 }
 
 .top-label {
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 2px;
-  color: #b5cc3a;
+  color: var(--accent-light);
   font-weight: 600;
 }
 
@@ -122,7 +125,7 @@ const router = useRouter()
 .back-link {
   background: none;
   border: none;
-  color: #b5cc3a;
+  color: var(--accent-light);
   font-size: 0.95rem;
   cursor: pointer;
   padding: 0;
@@ -137,11 +140,11 @@ const router = useRouter()
 }
 
 .legal-card {
-  background: #fff;
-  border: 1px solid #eef1f4;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: 16px;
   padding: 40px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 .legal-section {
@@ -154,26 +157,26 @@ const router = useRouter()
 
 .legal-section h2 {
   font-size: 1.25rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 2px solid #f0f4e6;
+  border-bottom: 2px solid var(--accent-soft);
 }
 
 .legal-section h3 {
   font-size: 1rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin: 16px 0 8px;
 }
 
 .legal-section p {
-  color: #636e72;
+  color: var(--text-muted);
   line-height: 1.7;
   margin-bottom: 8px;
 }
 
 .legal-section a {
-  color: #7c9128;
+  color: var(--accent);
   text-decoration: underline;
 }
 
@@ -185,7 +188,7 @@ const router = useRouter()
 
 .info-block h3 {
   font-size: 0.95rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 8px;
 }
 

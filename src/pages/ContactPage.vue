@@ -1,5 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { images } from '@/assets/images'
+
+const name = ref('')
+const email = ref('')
+const message = ref('')
+
+function sendMail() {
+  const subject = encodeURIComponent(`Nachricht von ${name.value}`)
+  const body = encodeURIComponent(
+    `Name: ${name.value}\nE-Mail: ${email.value}\n\n${message.value}`
+  )
+  window.location.href = `mailto:bernhardfruehwirth@gmx.at?subject=${subject}&body=${body}`
+}
 </script>
 
 <template>
@@ -20,8 +33,8 @@ import { images } from '@/assets/images'
             <div>
               <h3>Adresse</h3>
               <p>
-                Musterstraße 1<br />
-                12345 Musterstadt
+                Hauptstraße 18<br />
+                3442 Asparn
               </p>
             </div>
           </div>
@@ -32,7 +45,7 @@ import { images } from '@/assets/images'
             </div>
             <div>
               <h3>Telefon</h3>
-              <p>01234 / 56789</p>
+              <p>+43 676 / 3115331</p>
             </div>
           </div>
 
@@ -42,29 +55,31 @@ import { images } from '@/assets/images'
             </div>
             <div>
               <h3>E-Mail</h3>
-              <p>info@hofladen.de</p>
+              <p>bernhardfruehwirth&#64;gmx.at</p>
             </div>
           </div>
         </div>
 
         <div class="contact-form">
           <h2>Schreib uns</h2>
-          <form class="form">
+          <form class="form" @submit.prevent="sendMail">
             <div class="form-group">
               <label for="name">Name</label>
-              <input id="name" type="text" class="form-input" placeholder="Dein Name" />
+              <input id="name" v-model="name" type="text" class="form-input" placeholder="Dein Name" required />
             </div>
             <div class="form-group">
               <label for="email">E-Mail</label>
-              <input id="email" type="email" class="form-input" placeholder="Deine E-Mail" />
+              <input id="email" v-model="email" type="email" class="form-input" placeholder="Deine E-Mail" required />
             </div>
             <div class="form-group">
               <label for="message">Nachricht</label>
               <textarea
                 id="message"
+                v-model="message"
                 class="form-input form-textarea"
                 placeholder="Deine Nachricht"
                 rows="5"
+                required
               ></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Nachricht senden</button>
@@ -83,13 +98,13 @@ import { images } from '@/assets/images'
 .page-title {
   text-align: center;
   font-size: 2rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 8px;
 }
 
 .page-subtitle {
   text-align: center;
-  color: #636e72;
+  color: var(--text-muted);
   max-width: 600px;
   margin: 0 auto 40px;
   line-height: 1.7;
@@ -106,7 +121,8 @@ import { images } from '@/assets/images'
   display: flex;
   gap: 16px;
   padding: 20px;
-  background: #f5f6fa;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   margin-bottom: 16px;
 }
@@ -125,19 +141,19 @@ import { images } from '@/assets/images'
 
 .contact-card h3 {
   font-size: 1rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 4px;
 }
 
 .contact-card p {
   font-size: 0.9rem;
-  color: #636e72;
+  color: var(--text-muted);
   line-height: 1.5;
 }
 
 .contact-form h2 {
   font-size: 1.3rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 20px;
 }
 
@@ -156,20 +172,22 @@ import { images } from '@/assets/images'
 .form-group label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #2d3436;
+  color: var(--text);
 }
 
 .form-input {
   padding: 10px 14px;
-  border: 2px solid #dfe6e9;
+  border: 2px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s;
+  background: var(--bg-card);
+  color: var(--text);
 }
 
 .form-input:focus {
-  border-color: #7c9128;
+  border-color: var(--accent);
 }
 
 .form-textarea {

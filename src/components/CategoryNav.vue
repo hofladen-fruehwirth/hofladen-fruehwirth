@@ -46,25 +46,25 @@ const emit = defineEmits<{
   align-items: center;
   gap: 8px;
   padding: 10px 18px;
-  border: 2px solid #dfe6e9;
+  border: 2px solid var(--border);
   border-radius: 30px;
-  background: #fff;
+  background: var(--bg-card);
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #636e72;
+  color: var(--text-muted);
   transition: all 0.2s;
 }
 
 .category-btn:hover {
-  border-color: #7c9128;
-  color: #7c9128;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .category-btn--active {
-  background: #7c9128;
+  background: var(--accent);
   color: #fff;
-  border-color: #7c9128;
+  border-color: var(--accent);
 }
 
 .category-icon {

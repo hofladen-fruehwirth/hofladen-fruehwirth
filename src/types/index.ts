@@ -4,7 +4,6 @@ export interface Product {
   description: string
   price: string
   category: Category
-  image?: string
 }
 
 export type Category = 'fleisch' | 'wurst' | 'eier' | 'obst' | 'getraenk' | 'aufstrich' | 'geschenk'

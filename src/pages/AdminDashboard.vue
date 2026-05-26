@@ -18,10 +18,6 @@ onMounted(async () => {
   loading.value = false
 })
 
-function productImage(product: Product) {
-  return product.image || categoryImages[product.category]
-}
-
 async function handleDelete(id: string, name: string) {
   if (!confirm(`"${name}" wirklich löschen?`)) return
   await deleteProduct(id)
@@ -68,7 +64,7 @@ async function handleLogout() {
             <tr v-for="product in products" :key="product.id">
               <td>
                 <img
-                  :src="productImage(product)"
+                  :src="categoryImages[product.category]"
                   :alt="product.name"
                   class="table-img"
                 />
@@ -116,7 +112,7 @@ async function handleLogout() {
 
 .header-row h1 {
   font-size: 1.5rem;
-  color: #2d3436;
+  color: var(--text-heading);
 }
 
 .header-actions {
@@ -128,7 +124,7 @@ async function handleLogout() {
 .empty {
   text-align: center;
   padding: 48px;
-  color: #636e72;
+  color: var(--text-muted);
 }
 
 .table-wrap {
@@ -138,10 +134,10 @@ async function handleLogout() {
 .table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 .table th,
@@ -152,8 +148,8 @@ async function handleLogout() {
 }
 
 .table th {
-  background: #f5f6fa;
-  color: #636e72;
+  background: var(--bg-surface);
+  color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.8rem;
@@ -161,7 +157,7 @@ async function handleLogout() {
 }
 
 .table td {
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .table tr:last-child td {
@@ -173,13 +169,13 @@ async function handleLogout() {
   height: 48px;
   object-fit: contain;
   border-radius: 6px;
-  background: #f5f6fa;
+  background: var(--bg-surface);
 }
 
 .badge {
   display: inline-block;
-  background: #f0f4e6;
-  color: #7c9128;
+  background: var(--accent-soft);
+  color: var(--accent);
   padding: 3px 10px;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -197,35 +193,100 @@ async function handleLogout() {
   font-size: 0.85rem;
 }
 
-.btn-secondary {
-  background: #f5f6fa;
-  color: #2d3436;
-  border: 1px solid #dfe6e9;
-}
-
-.btn-secondary:hover {
-  background: #eef1f4;
-}
-
-.btn-danger,
-.btn-outline-danger {
-  background: #d63031;
+.btn-danger {
+  background: var(--danger);
   color: #fff;
-  border: 1px solid #d63031;
+  border: 1px solid var(--danger);
 }
 
 .btn-danger:hover {
-  background: #b71c1c;
+  background: var(--danger-hover);
 }
 
 .btn-outline-danger {
   background: transparent;
-  color: #d63031;
-  border: 1px solid #d63031;
+  color: var(--danger);
+  border: 1px solid var(--danger);
 }
 
 .btn-outline-danger:hover {
-  background: #d63031;
+  background: var(--danger);
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 24px 0;
+  }
+
+  .header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .header-row h1 {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .header-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .table-wrap {
+    overflow: visible;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+  }
+
+  .table tr {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .table td {
+    border: none;
+    padding: 6px 0;
+    text-align: center;
+  }
+
+  .table td:first-child {
+    padding-top: 0;
+  }
+
+  .table td:last-child {
+    padding-bottom: 0;
+  }
+
+  .table-img {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+  }
+
+  .action-btns {
+    justify-content: center;
+    gap: 12px;
+  }
 }
 </style>

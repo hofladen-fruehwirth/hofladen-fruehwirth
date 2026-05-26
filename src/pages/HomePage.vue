@@ -15,8 +15,8 @@ const router = useRouter()
         <span class="hero-highlight">auf deinen Tisch</span>
       </h1>
       <p class="hero-subtitle">
-        Regionale Spezialitäten aus artgerechter Haltung und biologischem Anbau.
-        Direkt vom Bauernhof – ohne Umwege.
+        Frische Produkte direkt vom Bauernhof –<br />
+        natürlich, regional, lecker.
       </p>
       <div class="hero-buttons">
         <button class="btn btn-primary btn-lg" @click="router.push('/products')">
@@ -82,22 +82,13 @@ const router = useRouter()
   <section class="section about-preview">
     <div class="container">
       <div class="about-grid">
-        <div class="about-image-col">
-          <div class="about-image-wrapper">
-            <img :src="images.aboutHeaderTop" alt="Unser Hof" class="about-main-img" />
-            <div class="about-image-card">
-              <img :src="images.checkIcon" alt="" />
-              <span>100% Bio-Qualität</span>
-            </div>
-          </div>
-        </div>
         <div class="about-text-col">
           <span class="section-badge">Über uns</span>
-          <h2 class="section-title" style="text-align:left">
+          <h2 class="section-title">
             Direkt vom Hof<br />
             <span class="text-green">auf den Tisch</span>
           </h2>
-          <img :src="images.underline" alt="" class="section-underline" style="margin:0 0 20px" />
+          <img :src="images.underline" alt="" class="section-underline" />
           <p>
             Seit vier Generationen führen wir unseren Familienbetrieb mit Leidenschaft
             und Respekt vor der Natur. Unsere Tiere leben artgerecht, unser Obst und
@@ -139,7 +130,6 @@ const router = useRouter()
 </template>
 
 <style scoped>
-/* ===== HERO ===== */
 .hero {
   position: relative;
   min-height: 80vh;
@@ -155,7 +145,7 @@ const router = useRouter()
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(45, 52, 54, 0.9) 0%, rgba(99, 110, 114, 0.7) 100%);
+  background: linear-gradient(135deg, var(--hero-overlay-start) 0%, var(--hero-overlay-end) 100%);
 }
 
 .hero-content {
@@ -192,7 +182,6 @@ const router = useRouter()
   flex-wrap: wrap;
 }
 
-/* ===== SECTIONS ===== */
 .section {
   padding: 80px 0;
 }
@@ -204,8 +193,8 @@ const router = useRouter()
 
 .section-badge {
   display: inline-block;
-  background: #f0f4e6;
-  color: #7c9128;
+  background: var(--accent-soft);
+  color: var(--accent-light);
   padding: 6px 18px;
   border-radius: 30px;
   font-size: 0.85rem;
@@ -218,7 +207,7 @@ const router = useRouter()
 .section-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #2d3436;
+  color: var(--text-heading);
   text-align: center;
   margin-bottom: 12px;
   line-height: 1.2;
@@ -231,7 +220,7 @@ const router = useRouter()
 }
 
 .section-desc {
-  color: #636e72;
+  color: var(--text-muted);
   font-size: 1.05rem;
   max-width: 500px;
   margin: 0 auto;
@@ -239,12 +228,11 @@ const router = useRouter()
 }
 
 .text-green {
-  color: #7c9128;
+  color: var(--accent);
 }
 
-/* ===== FEATURED / CATEGORIES ===== */
 .featured {
-  background: #fafbfc;
+  background: var(--bg-soft);
 }
 
 .categories-grid {
@@ -254,18 +242,18 @@ const router = useRouter()
 }
 
 .category-card {
-  background: #fff;
-  border: 1px solid #eef1f4;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: 20px;
   padding: 36px 20px 24px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .category-card:hover {
-  border-color: #7c9128;
+  border-color: var(--accent);
   transform: translateY(-6px);
   box-shadow: 0 12px 28px rgba(124, 145, 40, 0.18);
 }
@@ -284,13 +272,16 @@ const router = useRouter()
 
 .category-card-label {
   font-weight: 600;
-  color: #2d3436;
+  color: var(--text-heading);
   font-size: 1rem;
 }
 
-/* ===== BANNER ===== */
 .banner {
   background: #2d3436;
+}
+
+[data-theme="dark"] .banner {
+  background: #1a1a1a;
 }
 
 .banner-card {
@@ -362,51 +353,22 @@ const router = useRouter()
   animation: float 3s ease-in-out infinite;
 }
 
-/* ===== ABOUT PREVIEW ===== */
 .about-preview {
-  background: #fff;
+  background: var(--bg);
 }
 
 .about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 60px;
-}
-
-.about-image-wrapper {
-  position: relative;
-}
-
-.about-main-img {
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-}
-
-.about-image-card {
-  position: absolute;
-  bottom: -16px;
-  right: -16px;
-  background: #7c9128;
-  color: #fff;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  box-shadow: 0 8px 24px rgba(124, 145, 40, 0.3);
+  justify-content: center;
 }
 
-.about-image-card img {
-  width: 20px;
-  height: 20px;
+.about-text-col {
+  max-width: 680px;
+  text-align: center;
 }
 
 .about-text-col p {
-  color: #636e72;
+  color: var(--text-muted);
   line-height: 1.8;
   margin-bottom: 20px;
 }
@@ -415,6 +377,9 @@ const router = useRouter()
   list-style: none;
   padding: 0;
   margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .check-list li {
@@ -423,7 +388,7 @@ const router = useRouter()
   gap: 10px;
   padding: 8px 0;
   font-weight: 500;
-  color: #2d3436;
+  color: var(--text);
 }
 
 .check-icon {
@@ -431,9 +396,8 @@ const router = useRouter()
   height: 22px;
 }
 
-/* ===== CTA ===== */
 .contact-cta {
-  background: #7c9128;
+  background: var(--accent);
   padding: 64px 0;
 }
 
@@ -456,29 +420,22 @@ const router = useRouter()
 
 .cta-card .btn-primary {
   background: #fff;
-  color: #7c9128;
+  color: var(--accent);
 }
 
 .cta-card .btn-primary:hover {
   background: #f0f4e6;
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .hero {
     min-height: auto;
     padding: 60px 0;
-  }
-
-  .hero {
-    min-height: auto;
-    padding: 80px 0;
   }
 
   .hero-title {
@@ -510,11 +467,6 @@ const router = useRouter()
   .about-grid {
     grid-template-columns: 1fr;
     gap: 32px;
-  }
-
-  .about-image-card {
-    bottom: 0;
-    right: 0;
   }
 
   .section {

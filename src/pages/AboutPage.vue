@@ -66,7 +66,7 @@ import { images } from '@/assets/images'
 .page-title {
   text-align: center;
   font-size: 2rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 40px;
 }
 
@@ -85,20 +85,20 @@ import { images } from '@/assets/images'
 
 .about-content h2 {
   font-size: 1.5rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 16px;
 }
 
 .about-content p {
   line-height: 1.8;
-  color: #636e72;
+  color: var(--text-muted);
   margin-bottom: 12px;
 }
 
 .section-title {
   text-align: center;
   font-size: 1.75rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 32px;
 }
 
@@ -111,7 +111,8 @@ import { images } from '@/assets/images'
 .value-card {
   text-align: center;
   padding: 32px 20px;
-  background: #f5f6fa;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
 }
 
@@ -128,13 +129,13 @@ import { images } from '@/assets/images'
 
 .value-card h3 {
   font-size: 1.15rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 8px;
 }
 
 .value-card p {
   font-size: 0.9rem;
-  color: #636e72;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 

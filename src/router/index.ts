@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHashHistory('/hofladen/'),
+  history: createWebHashHistory('/hofladen-fruehwirth/'),
   routes: [
     {
       path: '/',
@@ -64,14 +64,24 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to, _from, next) => {
+function getAuthState(): Promise<boolean> {
+  return new Promise((resolve) => {
+    import('firebase/auth').then(({ getAuth, onAuthStateChanged }) => {
+      const auth = getAuth()
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        unsubscribe()
+        resolve(!!user)
+      })
+    })
+  })
+}
+
+router.beforeEach(async (to, _from, next) => {
   const requiresAuth = to.matched.some((r) => r.meta.requiresAuth)
   if (requiresAuth) {
-    import('firebase/auth').then(({ getAuth }) => {
-      const user = getAuth().currentUser
-      if (!user) next('/admin')
-      else next()
-    })
+    const loggedIn = await getAuthState()
+    if (!loggedIn) next('/admin')
+    else next()
   } else {
     next()
   }

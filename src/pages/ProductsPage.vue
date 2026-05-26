@@ -59,13 +59,13 @@ function selectCategory(cat: Category | undefined) {
 .page-title {
   text-align: center;
   font-size: 2rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 8px;
 }
 
 .page-subtitle {
   text-align: center;
-  color: #636e72;
+  color: var(--text-muted);
   margin-bottom: 32px;
 }
 
@@ -79,7 +79,7 @@ function selectCategory(cat: Category | undefined) {
 .empty {
   text-align: center;
   padding: 48px;
-  color: #636e72;
+  color: var(--text-muted);
 }
 
 @media (max-width: 768px) {

@@ -41,9 +41,22 @@ const router = useRouter()
           </section>
 
           <section class="legal-section">
-            <h2>3. Hosting</h2>
+            <h2>3. Hosting & Backend</h2>
             <p>
-              Diese Website wird bei einem externen Hosting-Anbieter gehostet (Firebase, Google LLC). Die personenbezogenen Daten werden auf den Servern des Anbieters gespeichert.
+              Diese Website wird statisch über <strong>GitHub Pages</strong> (GitHub, Inc.) gehostet. Für dynamische Funktionen (Benutzerauthentifizierung, Produktdaten) nutzen wir <strong>Firebase</strong> (Google LLC).
+            </p>
+            <p>
+              Personenbezogene Daten (z. B. bei Registrierung: E-Mail-Adresse, User-ID) werden auf Servern von Firebase gespeichert, die sich auch in den USA befinden können. Für die Übermittlung in die USA stützt sich der Anbieter auf die Standardvertragsklauseln (SCC) der EU-Kommission, um ein angemessenes Datenschutzniveau sicherzustellen.
+            </p>
+            <p>
+              <strong>Verarbeitete Daten über Firebase:</strong>
+            </p>
+            <ul>
+              <li><strong>Authentifizierung:</strong> E-Mail-Adresse, verschlüsseltes Passwort, User-ID</li>
+              <li><strong>Produktdaten:</strong> Öffentlich zugängliche Produktinformationen (keine personenbezogenen Daten)</li>
+            </ul>
+            <p>
+              Hinweis: Wir verwenden Firebase ohne Analytics- und Tracking-Funktionen. Weitere Informationen finden Sie in der Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>.
             </p>
           </section>
 
@@ -54,14 +67,36 @@ const router = useRouter()
               <li>Auskunft (Art. 15 DSGVO)</li>
               <li>Berichtigung (Art. 16 DSGVO)</li>
               <li>Löschung (Art. 17 DSGVO)</li>
+              <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+              <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
               <li>Widerspruch (Art. 21 DSGVO)</li>
             </ul>
+            <p>
+              Zusätzlich haben Sie das Recht, sich bei einer Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Die für uns zuständige Aufsichtsbehörde ist die <strong>Österreichische Datenschutzbehörde</strong>, Barichgasse 40–42, 1030 Wien, <a href="https://www.dsb.gv.at" target="_blank" rel="noopener">www.dsb.gv.at</a>.
+            </p>
           </section>
 
           <section class="legal-section">
             <h2>5. Kontakt</h2>
             <p>
-              Wenn Sie uns per E-Mail kontaktieren, werden Ihre Angaben zum Zweck der Bearbeitung der Anfrage gespeichert. Diese Daten werden ohne Ihre Einwilligung nicht weitergegeben.
+              Wenn Sie uns per E-Mail oder über das Kontaktformular kontaktieren, werden Ihre Angaben (Name, E-Mail-Adresse, Nachricht) zum Zweck der Bearbeitung Ihrer Anfrage gespeichert. Diese Daten werden ohne Ihre Einwilligung nicht weitergegeben.
+            </p>
+            <p>
+              <strong>Rechtsgrundlage:</strong> Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Bearbeitung Ihrer Anfrage) und ggf. Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen).
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>6. Speicherdauer</h2>
+            <p>
+              Personenbezogene Daten werden nur so lange gespeichert, wie es für den jeweiligen Verarbeitungszweck erforderlich ist. Bei Kontaktanfragen löschen wir Ihre Daten spätestens sechs Monate nach abschließender Bearbeitung, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>7. Cookies</h2>
+            <p>
+              Diese Website verwendet keine Cookies, die der Verarbeitung personenbezogener Daten dienen. Es werden keine Tracking-, Analyse- oder Werbe-Cookies eingesetzt.
             </p>
           </section>
 
@@ -80,6 +115,10 @@ const router = useRouter()
   padding: 64px 20px 48px;
 }
 
+[data-theme="dark"] .legal-hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d3436 100%);
+}
+
 .label-wrapper {
   display: flex;
   align-items: center;
@@ -91,14 +130,14 @@ const router = useRouter()
 .label-line {
   width: 40px;
   height: 2px;
-  background: #b5cc3a;
+  background: var(--accent-light);
 }
 
 .top-label {
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 2px;
-  color: #b5cc3a;
+  color: var(--accent-light);
   font-weight: 600;
 }
 
@@ -111,7 +150,7 @@ const router = useRouter()
 .back-link {
   background: none;
   border: none;
-  color: #b5cc3a;
+  color: var(--accent-light);
   font-size: 0.95rem;
   cursor: pointer;
   padding: 0;
@@ -126,11 +165,11 @@ const router = useRouter()
 }
 
 .legal-card {
-  background: #fff;
-  border: 1px solid #eef1f4;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: 16px;
   padding: 40px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   max-width: 800px;
   margin: 0 auto;
 }
@@ -145,37 +184,37 @@ const router = useRouter()
 
 .legal-section h2 {
   font-size: 1.25rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 16px;
   padding-bottom: 8px;
-  border-bottom: 2px solid #f0f4e6;
+  border-bottom: 2px solid var(--accent-soft);
 }
 
 .legal-section h3 {
   font-size: 1rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin: 16px 0 8px;
 }
 
 .legal-section p {
-  color: #636e72;
+  color: var(--text-muted);
   line-height: 1.7;
   margin-bottom: 8px;
 }
 
 .legal-section ul {
-  color: #636e72;
+  color: var(--text-muted);
   line-height: 1.7;
   padding-left: 20px;
 }
 
 .legal-section a {
-  color: #7c9128;
+  color: var(--accent);
   text-decoration: underline;
 }
 
 .stand {
-  color: #b2bec3;
+  color: var(--text-muted);
   font-size: 0.85rem;
   margin-top: 32px;
   text-align: center;

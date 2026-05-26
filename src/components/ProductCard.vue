@@ -8,7 +8,7 @@ const props = defineProps<{ product: Product }>()
 
 const router = useRouter()
 
-const imgSrc = computed(() => props.product.image || categoryImages[props.product.category])
+const imgSrc = computed(() => categoryImages[props.product.category])
 </script>
 
 <template>
@@ -26,24 +26,25 @@ const imgSrc = computed(() => props.product.image || categoryImages[props.produc
 
 <style scoped>
 .card {
-  background: #fff;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .card-image {
   width: 100%;
   height: 200px;
   overflow: hidden;
-  background: #f5f6fa;
+  background: var(--bg-surface);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,20 +62,20 @@ const imgSrc = computed(() => props.product.image || categoryImages[props.produc
 
 .card-title {
   font-size: 1.1rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 8px;
 }
 
 .card-desc {
   font-size: 0.85rem;
-  color: #636e72;
+  color: var(--text-muted);
   line-height: 1.5;
   margin-bottom: 12px;
 }
 
 .card-price {
   display: inline-block;
-  background: #7c9128;
+  background: var(--accent);
   color: #fff;
   padding: 4px 12px;
   border-radius: 20px;

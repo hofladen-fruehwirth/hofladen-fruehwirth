@@ -41,7 +41,7 @@ const openingHours = [
 
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
-        <p>&copy; {{ new Date().getFullYear() }} B5 Hofladen</p>
+        <p>&copy; 2026 Fam. Frühwirth</p>
         <div class="legal-links">
           <button class="legal-link" @click="router.push('/impressum')">Impressum</button>
           <span class="divider">|</span>
@@ -57,6 +57,10 @@ const openingHours = [
   background: #2d3436;
   color: #dfe6e9;
   margin-top: auto;
+}
+
+[data-theme="dark"] .footer {
+  background: #1a1a1a;
 }
 
 .footer-inner {
@@ -88,6 +92,7 @@ const openingHours = [
 .footer-text {
   line-height: 1.7;
   font-size: 0.9rem;
+  color: #b2bec3;
 }
 
 .footer-row {
@@ -108,6 +113,10 @@ const openingHours = [
   padding: 16px 0;
   font-size: 0.85rem;
   color: #b2bec3;
+}
+
+[data-theme="dark"] .footer-bottom {
+  border-top-color: #3a3a3a;
 }
 
 .footer-bottom-inner {

@@ -57,18 +57,18 @@ async function handleSubmit() {
 }
 
 .login-card {
-  background: #fff;
-  border: 1px solid #eef1f4;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: 16px;
   padding: 40px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .login-card h1 {
   font-size: 1.5rem;
-  color: #2d3436;
+  color: var(--text-heading);
   margin-bottom: 24px;
   text-align: center;
 }
@@ -88,24 +88,26 @@ async function handleSubmit() {
 .form-group label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #2d3436;
+  color: var(--text);
 }
 
 .form-input {
   padding: 10px 14px;
-  border: 2px solid #dfe6e9;
+  border: 2px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s;
+  background: var(--bg-card);
+  color: var(--text);
 }
 
 .form-input:focus {
-  border-color: #7c9128;
+  border-color: var(--accent);
 }
 
 .error {
-  color: #d63031;
+  color: var(--danger);
   font-size: 0.85rem;
 }
 </style>
