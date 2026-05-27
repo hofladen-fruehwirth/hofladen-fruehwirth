@@ -119,6 +119,7 @@ function sendMail() {
 
 .contact-card {
   display: flex;
+  align-items: center;
   gap: 16px;
   padding: 20px;
   background: var(--bg-card);
@@ -131,6 +132,9 @@ function sendMail() {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .contact-icon img {
