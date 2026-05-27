@@ -5,8 +5,12 @@ import { images } from '@/assets/images'
 const router = useRouter()
 
 const openingHours = [
-  { day: 'Mo – Fr', hours: '08:00 – 18:00' },
-  { day: 'Samstag', hours: '08:00 – 13:00' },
+  { day: 'Montag', hours: '09:00 – 12:00' },
+  { day: 'Dienstag', hours: 'Geschlossen' },
+  { day: 'Mittwoch', hours: '15:00 – 18:00' },
+  { day: 'Donnerstag', hours: 'Geschlossen' },
+  { day: 'Freitag', hours: '09:00 – 18:00' },
+  { day: 'Samstag', hours: '09:00 – 15:00' },
   { day: 'Sonntag', hours: 'Geschlossen' },
 ]
 </script>
@@ -67,7 +71,8 @@ const openingHours = [
   display: grid;
   grid-template-columns: 1.3fr 1fr 1fr;
   gap: 40px;
-  padding: 48px 0;
+  padding: 24px 0;
+  align-items: center;
 }
 
 .footer-logo {
