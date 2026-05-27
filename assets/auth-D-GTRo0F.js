@@ -1,0 +1,1 @@
+import{onAuthStateChanged as o,signOut as s,signInWithEmailAndPassword as i,getAuth as r}from"./index.esm-Cx9g0pTc.js";import"./index.esm-BRL0tNP0.js";import{a as u}from"./firebase-CgiDNxdO.js";const t=r(u);function m(n,a){return i(t,n,a)}function p(){return s(t)}function f(n){return o(t,n)}export{p as a,f as o,m as s};
