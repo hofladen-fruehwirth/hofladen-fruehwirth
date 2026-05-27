@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { onAuthChange } from '@/services/auth'
+import { onAuthChange, getAuthError } from '@/services/auth'
 import { fetchProduct, addProduct, updateProduct } from '@/services/products'
+import { compressImage, ImageError } from '@/services/image'
+import { showError } from '@/services/notifications'
 import { categories } from '@/data/products'
 import type { Category } from '@/types'
 
@@ -19,25 +21,74 @@ const description = ref('')
 const price = ref('')
 const category = ref<Category>('fleisch')
 const hidden = ref(false)
+const imagePreview = ref('')
+const compressedImage = ref('')
+const compressing = ref(false)
+
+const inputRef = ref<HTMLInputElement | null>(null)
+
+const hasImage = computed(() => !!imagePreview.value)
+
 onMounted(async () => {
+  const authErr = getAuthError()
+  if (authErr) {
+    error.value = 'Firebase Auth ist nicht konfiguriert (API-Key fehlt)'
+    loading.value = false
+    return
+  }
+
   onAuthChange((user) => {
     if (!user) router.replace('/admin')
   })
 
   if (isEdit.value) {
-    const product = await fetchProduct(route.params.id as string)
-    if (product) {
-      name.value = product.name
-      description.value = product.description
-      price.value = product.price
-      category.value = product.category
-      hidden.value = product.hidden ?? false
-    } else {
-      error.value = 'Produkt nicht gefunden'
+    try {
+      const product = await fetchProduct(route.params.id as string)
+      if (product) {
+        name.value = product.name
+        description.value = product.description
+        price.value = product.price
+        category.value = product.category
+        hidden.value = product.hidden ?? false
+        if (product.imageBase64) {
+          imagePreview.value = product.imageBase64
+        }
+      } else {
+        error.value = 'Produkt nicht gefunden'
+      }
+    } catch (e: any) {
+      error.value = e?.message || 'Fehler beim Laden des Produkts'
     }
   }
   loading.value = false
 })
+
+async function onFileSelect(event: Event) {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file) return
+
+  compressing.value = true
+  error.value = ''
+
+  try {
+    compressedImage.value = await compressImage(file)
+    imagePreview.value = compressedImage.value
+  } catch (e: any) {
+    const msg = e instanceof ImageError ? e.message : 'Fehler beim Komprimieren'
+    error.value = msg
+    showError(msg)
+    input.value = ''
+  } finally {
+    compressing.value = false
+  }
+}
+
+function removeImage() {
+  imagePreview.value = ''
+  compressedImage.value = ''
+  if (inputRef.value) inputRef.value.value = ''
+}
 
 async function handleSubmit() {
   if (!name.value || !description.value || !price.value) {
@@ -49,7 +100,7 @@ async function handleSubmit() {
   saving.value = true
 
   try {
-    const data = {
+    const data: Record<string, any> = {
       name: name.value,
       description: description.value,
       price: price.value,
@@ -57,15 +108,23 @@ async function handleSubmit() {
       hidden: hidden.value,
     }
 
+    if (compressedImage.value) {
+      data.imageBase64 = compressedImage.value
+    } else if (isEdit.value && !imagePreview.value) {
+      data.imageBase64 = ''
+    }
+
     if (isEdit.value) {
       await updateProduct(route.params.id as string, data)
     } else {
-      await addProduct(data)
+      await addProduct(data as any)
     }
 
     router.push('/admin/dashboard')
   } catch (e: any) {
-    error.value = e.message || 'Fehler beim Speichern'
+    const msg = e.message || 'Fehler beim Speichern'
+    error.value = msg
+    showError(msg)
   } finally {
     saving.value = false
   }
@@ -93,6 +152,34 @@ async function handleSubmit() {
           <div class="form-group">
             <label for="description">Beschreibung</label>
             <textarea id="description" v-model="description" class="form-input form-textarea" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Bild</label>
+            <div class="image-upload">
+              <div v-if="hasImage" class="image-preview">
+                <img :src="imagePreview" alt="Vorschau" />
+              </div>
+              <div v-else class="image-placeholder">Kein Bild ausgewählt</div>
+              <div class="image-actions">
+                <input
+                  ref="inputRef"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  class="file-input"
+                  @change="onFileSelect"
+                />
+                <button
+                  v-if="hasImage"
+                  type="button"
+                  class="btn btn-sm btn-danger"
+                  @click="removeImage"
+                >
+                  Bild entfernen
+                </button>
+              </div>
+              <p v-if="compressing" class="image-status">Bild wird komprimiert…</p>
+            </div>
           </div>
 
           <div class="form-row">
@@ -248,6 +335,54 @@ async function handleSubmit() {
   justify-content: flex-end;
   gap: 8px;
   padding-top: 8px;
+}
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.image-preview {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-placeholder {
+  width: 100%;
+  max-width: 300px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.image-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-input {
+  font-size: 0.85rem;
+}
+
+.image-status {
+  color: var(--text-muted);
+  font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {

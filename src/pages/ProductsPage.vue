@@ -3,6 +3,8 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Category, Product } from '@/types'
 import { fetchProducts } from '@/services/products'
+import { getAuthError } from '@/services/auth'
+import { showError } from '@/services/notifications'
 import ProductCard from '@/components/ProductCard.vue'
 import CategoryNav from '@/components/CategoryNav.vue'
 
@@ -14,7 +16,17 @@ const activeCategory = ref<Category | undefined>(
 )
 
 onMounted(async () => {
-  products.value = await fetchProducts()
+  const authErr = getAuthError()
+  if (authErr) {
+    showError('Fehler: Firebase ist nicht konfiguriert (API-Key fehlt)')
+    loading.value = false
+    return
+  }
+  try {
+    products.value = await fetchProducts()
+  } catch (e: any) {
+    showError(e?.message || 'Fehler beim Laden der Produkte')
+  }
   loading.value = false
 })
 

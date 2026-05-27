@@ -2,6 +2,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { fetchProduct } from '@/services/products'
+import { getAuthError } from '@/services/auth'
+import { showError } from '@/services/notifications'
 import { categoryImages } from '@/assets/images'
 import type { Product } from '@/types'
 
@@ -10,15 +12,24 @@ const route = useRoute()
 const product = ref<Product | null>(null)
 const notFound = ref(false)
 
-const imgSrc = computed(() => categoryImages[product.value?.category || 'fleisch'])
+const imgSrc = computed(() => product.value?.imageBase64 || categoryImages[product.value?.category || 'fleisch'])
 
 onMounted(async () => {
+  const authErr = getAuthError()
+  if (authErr) {
+    showError('Fehler: Firebase ist nicht konfiguriert (API-Key fehlt)')
+    return
+  }
   const id = route.params.id as string
-  const data = await fetchProduct(id)
-  if (data) {
-    product.value = data
-  } else {
-    notFound.value = true
+  try {
+    const data = await fetchProduct(id)
+    if (data) {
+      product.value = data
+    } else {
+      notFound.value = true
+    }
+  } catch (e: any) {
+    showError(e?.message || 'Fehler beim Laden des Produkts')
   }
 })
 </script>

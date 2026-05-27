@@ -8,7 +8,7 @@ const props = defineProps<{ product: Product }>()
 
 const router = useRouter()
 
-const imgSrc = computed(() => categoryImages[props.product.category])
+const imgSrc = computed(() => props.product.imageBase64 || categoryImages[props.product.category])
 </script>
 
 <template>

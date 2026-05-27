@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { signOut, onAuthChange } from '@/services/auth'
+import { signOut, onAuthChange, getAuthError } from '@/services/auth'
 import { fetchProducts, updateProduct, deleteProduct } from '@/services/products'
 import { categoryImages } from '@/assets/images'
+import { showError } from '@/services/notifications'
 import type { Product } from '@/types'
 
 const router = useRouter()
@@ -11,10 +12,21 @@ const products = ref<Product[]>([])
 const loading = ref(true)
 
 onMounted(async () => {
+  const authErr = getAuthError()
+  if (authErr) {
+    showError('Fehler: Firebase Auth ist nicht konfiguriert (API-Key fehlt)')
+    loading.value = false
+    return
+  }
+
   onAuthChange((user) => {
     if (!user) router.replace('/admin')
   })
-  products.value = await fetchProducts()
+  try {
+    products.value = await fetchProducts()
+  } catch (e: any) {
+    showError(e?.message || 'Fehler beim Laden der Produkte')
+  }
   loading.value = false
 })
 
@@ -69,7 +81,7 @@ async function handleLogout() {
             <tr v-for="product in products" :key="product.id" :class="{ 'row-hidden': product.hidden }">
               <td>
                 <img
-                  :src="categoryImages[product.category]"
+                  :src="product.imageBase64 || categoryImages[product.category]"
                   :alt="product.name"
                   class="table-img"
                 />

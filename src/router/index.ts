@@ -79,9 +79,13 @@ function getAuthState(): Promise<boolean> {
 router.beforeEach(async (to, _from, next) => {
   const requiresAuth = to.matched.some((r) => r.meta.requiresAuth)
   if (requiresAuth) {
-    const loggedIn = await getAuthState()
-    if (!loggedIn) next('/admin')
-    else next()
+    try {
+      const loggedIn = await getAuthState()
+      if (!loggedIn) next('/admin')
+      else next()
+    } catch {
+      next('/admin')
+    }
   } else {
     next()
   }
