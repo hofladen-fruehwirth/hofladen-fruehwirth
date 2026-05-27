@@ -1,4 +1,4 @@
-import{A as a,o as e}from"./index.esm-BRL0tNP0.js";var i="firebase",r="12.13.0";/**
+import{A as a,o as e}from"./index.esm-BRL0tNP0.js";var i="firebase",o="12.13.0";/**
  * @license
  * Copyright 2020 Google LLC
  *
@@ -13,4 +13,4 @@ import{A as a,o as e}from"./index.esm-BRL0tNP0.js";var i="firebase",r="12.13.0";
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */a(i,r,"app");const p={apiKey:"",authDomain:"",projectId:"",messagingSenderId:"",appId:""},o=e(p);export{o as a};
+ */a(i,o,"app");const r={apiKey:"AIzaSyC9E200_OabRASroocxLHt7kjawi6zi0-U",authDomain:"hofladen-28da1.firebaseapp.com",projectId:"hofladen-28da1",messagingSenderId:"611524304119",appId:"1:611524304119:web:6a12d100042034fe2647f2"},s=e(r);export{s as a};
