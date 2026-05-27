@@ -59,12 +59,22 @@ const emit = defineEmits<{
 .category-btn:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .category-btn--active {
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
+}
+
+.category-btn--active:hover {
+  background: var(--accent-hover);
+  color: #fff;
+}
+
+.category-btn--active .category-icon {
+  filter: brightness(0) invert(1);
 }
 
 .category-icon {
