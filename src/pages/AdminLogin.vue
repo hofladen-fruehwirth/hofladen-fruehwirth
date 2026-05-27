@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { signIn } from '@/services/auth'
+import { signIn, getAuthError } from '@/services/auth'
+import { showError } from '@/services/notifications'
 
 const router = useRouter()
 const email = ref('')
@@ -9,14 +10,30 @@ const password = ref('')
 const error = ref('')
 const loading = ref(false)
 
+onMounted(() => {
+  const authErr = getAuthError()
+  if (authErr) {
+    error.value = 'Firebase Auth ist nicht konfiguriert (API-Key fehlt)'
+  }
+})
+
 async function handleSubmit() {
   error.value = ''
+  const authErr = getAuthError()
+  if (authErr) {
+    error.value = 'Firebase Auth ist nicht konfiguriert'
+    return
+  }
   loading.value = true
   try {
     await signIn(email.value, password.value)
     router.push('/admin/dashboard')
   } catch (e: any) {
-    error.value = e.message || 'Fehler beim Anmelden'
+    const msg = e?.code === 'auth/invalid-api-key'
+      ? 'Firebase Auth ist nicht konfiguriert (API-Key fehlt)'
+      : e?.message || 'Fehler beim Anmelden'
+    error.value = msg
+    showError(msg)
   } finally {
     loading.value = false
   }
