@@ -132,7 +132,7 @@ const router = useRouter()
 <style scoped>
 .hero {
   position: relative;
-  min-height: 80vh;
+  min-height: calc(100vh - 91px);
   display: flex;
   align-items: center;
   justify-content: center;
