@@ -1,4 +1,4 @@
-import{A as e,o as n}from"./index.esm-BRL0tNP0.js";var i="firebase",a="12.13.0";/**
+import{A as a,o as e}from"./index.esm-BRL0tNP0.js";var i="firebase",r="12.13.0";/**
  * @license
  * Copyright 2020 Google LLC
  *
@@ -13,4 +13,4 @@ import{A as e,o as n}from"./index.esm-BRL0tNP0.js";var i="firebase",a="12.13.0";
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */e(i,a,"app");const d={apiKey:void 0,authDomain:void 0,projectId:void 0,messagingSenderId:void 0,appId:void 0},p=n(d);export{p as a};
+ */a(i,r,"app");const p={apiKey:"",authDomain:"",projectId:"",messagingSenderId:"",appId:""},o=e(p);export{o as a};
