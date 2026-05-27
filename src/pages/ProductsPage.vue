@@ -19,8 +19,9 @@ onMounted(async () => {
 })
 
 const filtered = computed(() => {
-  if (!activeCategory.value) return products.value
-  return products.value.filter((p) => p.category === activeCategory.value)
+  const visible = products.value.filter((p) => !p.hidden)
+  if (!activeCategory.value) return visible
+  return visible.filter((p) => p.category === activeCategory.value)
 })
 
 function selectCategory(cat: Category | undefined) {

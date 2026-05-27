@@ -18,6 +18,7 @@ const name = ref('')
 const description = ref('')
 const price = ref('')
 const category = ref<Category>('fleisch')
+const hidden = ref(false)
 onMounted(async () => {
   onAuthChange((user) => {
     if (!user) router.replace('/admin')
@@ -30,6 +31,7 @@ onMounted(async () => {
       description.value = product.description
       price.value = product.price
       category.value = product.category
+      hidden.value = product.hidden ?? false
     } else {
       error.value = 'Produkt nicht gefunden'
     }
@@ -52,6 +54,7 @@ async function handleSubmit() {
       description: description.value,
       price: price.value,
       category: category.value,
+      hidden: hidden.value,
     }
 
     if (isEdit.value) {
@@ -105,6 +108,13 @@ async function handleSubmit() {
                 </option>
               </select>
             </div>
+          </div>
+
+          <div class="form-group form-check">
+            <label class="checkbox-label">
+              <input type="checkbox" v-model="hidden" class="checkbox" />
+              Produkt verstecken (nicht sichtbar für Kunden)
+            </label>
           </div>
 
           <p v-if="error" class="error">{{ error }}</p>
@@ -206,6 +216,26 @@ async function handleSubmit() {
 .form-row {
   display: flex;
   gap: 16px;
+}
+
+.form-check {
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }
 
 .error {

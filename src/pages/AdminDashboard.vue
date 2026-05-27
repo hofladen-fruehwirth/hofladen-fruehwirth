@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { signOut, onAuthChange } from '@/services/auth'
-import { fetchProducts, deleteProduct } from '@/services/products'
+import { fetchProducts, updateProduct, deleteProduct } from '@/services/products'
 import { categoryImages } from '@/assets/images'
 import type { Product } from '@/types'
 
@@ -17,6 +17,11 @@ onMounted(async () => {
   products.value = await fetchProducts()
   loading.value = false
 })
+
+async function handleToggleHidden(product: Product) {
+  await updateProduct(product.id, { hidden: !product.hidden })
+  product.hidden = !product.hidden
+}
 
 async function handleDelete(id: string, name: string) {
   if (!confirm(`"${name}" wirklich löschen?`)) return
@@ -61,7 +66,7 @@ async function handleLogout() {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="product in products" :key="product.id">
+            <tr v-for="product in products" :key="product.id" :class="{ 'row-hidden': product.hidden }">
               <td>
                 <img
                   :src="categoryImages[product.category]"
@@ -69,7 +74,10 @@ async function handleLogout() {
                   class="table-img"
                 />
               </td>
-              <td>{{ product.name }}</td>
+              <td>
+                {{ product.name }}
+                <span v-if="product.hidden" class="badge badge-hidden">Nicht sichtbar</span>
+              </td>
               <td><span class="badge">{{ product.category }}</span></td>
               <td>{{ product.price }}</td>
               <td>
@@ -79,6 +87,13 @@ async function handleLogout() {
                     @click="router.push(`/admin/products/${product.id}`)"
                   >
                     Bearbeiten
+                  </button>
+                  <button
+                    class="btn btn-sm"
+                    :class="product.hidden ? 'btn-success' : 'btn-warning'"
+                    @click="handleToggleHidden(product)"
+                  >
+                    {{ product.hidden ? 'Einblenden' : 'Ausblenden' }}
                   </button>
                   <button
                     class="btn btn-sm btn-danger"
@@ -212,6 +227,37 @@ async function handleLogout() {
 .btn-outline-danger:hover {
   background: var(--danger);
   color: #fff;
+}
+
+.btn-warning {
+  background: #f39c12;
+  color: #fff;
+  border: 1px solid #f39c12;
+}
+
+.btn-warning:hover {
+  background: #e67e22;
+}
+
+.btn-success {
+  background: #27ae60;
+  color: #fff;
+  border: 1px solid #27ae60;
+}
+
+.btn-success:hover {
+  background: #219a52;
+}
+
+.row-hidden {
+  opacity: 0.55;
+}
+
+.badge-hidden {
+  background: #f39c12;
+  color: #fff;
+  font-size: 0.7rem;
+  margin-left: 6px;
 }
 
 @media (max-width: 768px) {
