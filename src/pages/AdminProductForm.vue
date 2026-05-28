@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import { onAuthChange, getAuthError } from '@/services/auth'
@@ -36,6 +36,7 @@ const compressing = ref(false)
 const inputRef = ref<HTMLInputElement | null>(null)
 
 const hasImage = computed(() => !!imagePreview.value)
+let unsubscribe: (() => void) | null = null
 
 onMounted(async () => {
   const authErr = getAuthError()
@@ -45,7 +46,7 @@ onMounted(async () => {
     return
   }
 
-  onAuthChange((user) => {
+  unsubscribe = onAuthChange((user) => {
     if (!user) router.replace('/admin')
   })
 
@@ -69,6 +70,10 @@ onMounted(async () => {
     }
   }
   loading.value = false
+})
+
+onUnmounted(() => {
+  unsubscribe?.()
 })
 
 async function onFileSelect(event: Event) {

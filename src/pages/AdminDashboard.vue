@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import { signOut, onAuthChange, getAuthError } from '@/services/auth'
@@ -18,6 +18,7 @@ useHead({
 const router = useRouter()
 const products = ref<Product[]>([])
 const loading = ref(true)
+let unsubscribe: (() => void) | null = null
 
 onMounted(async () => {
   const authErr = getAuthError()
@@ -27,7 +28,7 @@ onMounted(async () => {
     return
   }
 
-  onAuthChange((user) => {
+  unsubscribe = onAuthChange((user) => {
     if (!user) router.replace('/admin')
   })
   try {
@@ -38,20 +39,36 @@ onMounted(async () => {
   loading.value = false
 })
 
+onUnmounted(() => {
+  unsubscribe?.()
+})
+
 async function handleToggleHidden(product: Product) {
-  await updateProduct(product.id, { hidden: !product.hidden })
-  product.hidden = !product.hidden
+  try {
+    await updateProduct(product.id, { hidden: !product.hidden })
+    product.hidden = !product.hidden
+  } catch (e: any) {
+    showError(e?.message || 'Fehler beim Aktualisieren')
+  }
 }
 
 async function handleDelete(id: string, name: string) {
   if (!confirm(`"${name}" wirklich löschen?`)) return
-  await deleteProduct(id)
-  products.value = products.value.filter((p) => p.id !== id)
+  try {
+    await deleteProduct(id)
+    products.value = products.value.filter((p) => p.id !== id)
+  } catch (e: any) {
+    showError(e?.message || 'Fehler beim Löschen')
+  }
 }
 
 async function handleLogout() {
-  await signOut()
-  router.push('/admin')
+  try {
+    await signOut()
+    router.push('/admin')
+  } catch (e: any) {
+    showError(e?.message || 'Fehler beim Logout')
+  }
 }
 </script>
 

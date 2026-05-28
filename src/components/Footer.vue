@@ -82,8 +82,14 @@ const openingHours = [
 }
 
 .footer-logo img {
-  height: 50px;
+  height: 72px;
   width: auto;
+}
+
+@media (min-width: 769px) {
+  .footer-logo img {
+    height: 100px;
+  }
 }
 
 .footer-heading {

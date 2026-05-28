@@ -66,13 +66,15 @@ const router = createRouter({
 
 function getAuthState(): Promise<boolean> {
   return new Promise((resolve) => {
-    import('firebase/auth').then(({ getAuth, onAuthStateChanged }) => {
-      const auth = getAuth()
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        unsubscribe()
-        resolve(!!user)
+    import('firebase/auth')
+      .then(({ getAuth, onAuthStateChanged }) => {
+        const auth = getAuth()
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          unsubscribe()
+          resolve(!!user)
+        })
       })
-    })
+      .catch(() => resolve(false))
   })
 }
 
