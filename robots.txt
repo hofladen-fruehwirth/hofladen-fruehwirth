@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hofladen-fruehwirth.github.io/sitemap.xml
