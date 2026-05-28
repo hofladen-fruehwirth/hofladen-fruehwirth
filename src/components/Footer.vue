@@ -72,7 +72,7 @@ const openingHours = [
   grid-template-columns: 1.3fr 1fr 1fr;
   gap: 40px;
   padding: 40px 0;
-  margin: 24px;
+  margin: 24px auto;
   align-items: center;
 }
 
