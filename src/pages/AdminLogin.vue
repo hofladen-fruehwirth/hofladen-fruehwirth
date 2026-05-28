@@ -1,8 +1,16 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useHead } from '@unhead/vue'
 import { signIn, getAuthError } from '@/services/auth'
 import { showError } from '@/services/notifications'
+
+useHead({
+  title: 'Admin Login – Hofladen Frühwirth',
+  meta: [
+    { name: 'robots', content: 'noindex, nofollow' },
+  ],
+})
 
 const router = useRouter()
 const email = ref('')

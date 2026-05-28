@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useHead } from '@unhead/vue'
 import { onAuthChange, getAuthError } from '@/services/auth'
 import { fetchProduct, addProduct, updateProduct } from '@/services/products'
 import { compressImage, ImageError } from '@/services/image'
 import { showError } from '@/services/notifications'
 import { categories } from '@/data/products'
 import type { Category } from '@/types'
+
+useHead({
+  title: 'Produkt bearbeiten – Hofladen Frühwirth',
+  meta: [
+    { name: 'robots', content: 'noindex, nofollow' },
+  ],
+})
 
 const router = useRouter()
 const route = useRoute()

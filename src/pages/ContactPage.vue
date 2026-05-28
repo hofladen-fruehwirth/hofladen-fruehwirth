@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useHead } from '@unhead/vue'
 import { images } from '@/assets/images'
+
+useHead({
+  title: 'Kontakt – Hofladen Frühwirth in Asparn',
+  meta: [
+    { name: 'description', content: 'Kontaktiere den Hofladen Frühwirth in Asparn. Telefon, E-Mail und Adresse auf einen Blick.' },
+    { property: 'og:title', content: 'Kontakt – Hofladen Frühwirth' },
+  ],
+})
 
 const name = ref('')
 const email = ref('')

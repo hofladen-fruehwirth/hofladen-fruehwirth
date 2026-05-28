@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useHead } from '@unhead/vue'
 import { fetchProduct } from '@/services/products'
 import { getAuthError } from '@/services/auth'
 import { showError } from '@/services/notifications'
@@ -13,6 +14,16 @@ const product = ref<Product | null>(null)
 const notFound = ref(false)
 
 const imgSrc = computed(() => product.value?.imageBase64 || categoryImages[product.value?.category || 'fleisch'])
+
+const pageTitle = computed(() => product.value ? `${product.value.name} – Hofladen Frühwirth` : 'Produkt – Hofladen Frühwirth')
+
+useHead({
+  title: pageTitle,
+  meta: [
+    { name: 'description', content: computed(() => product.value?.description || 'Produktdetails') },
+    { property: 'og:title', content: pageTitle },
+  ],
+})
 
 onMounted(async () => {
   const authErr = getAuthError()

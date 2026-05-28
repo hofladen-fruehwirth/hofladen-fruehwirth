@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useHead } from '@unhead/vue'
 import { signOut, onAuthChange, getAuthError } from '@/services/auth'
 import { fetchProducts, updateProduct, deleteProduct } from '@/services/products'
 import { categoryImages } from '@/assets/images'
 import { showError } from '@/services/notifications'
 import type { Product } from '@/types'
+
+useHead({
+  title: 'Produkte verwalten – Hofladen Frühwirth',
+  meta: [
+    { name: 'robots', content: 'noindex, nofollow' },
+  ],
+})
 
 const router = useRouter()
 const products = ref<Product[]>([])
