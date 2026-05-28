@@ -1,5 +1,14 @@
 <script setup lang="ts">
+import { useHead } from '@unhead/vue'
 import { images } from '@/assets/images'
+
+useHead({
+  title: 'Über uns – Hofladen Frühwirth',
+  meta: [
+    { name: 'description', content: 'Seit vier Generationen führt die Familie Frühwirth ihren Bauernhof in Asparn. Artgerechte Tierhaltung, biologischer Anbau, kurze Transportwege.' },
+    { property: 'og:title', content: 'Über uns – Hofladen Frühwirth' },
+  ],
+})
 </script>
 
 <template>

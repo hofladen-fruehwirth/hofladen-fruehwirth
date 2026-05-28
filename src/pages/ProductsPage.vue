@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useHead } from '@unhead/vue'
 import type { Category, Product } from '@/types'
 import { fetchProducts } from '@/services/products'
 import { getAuthError } from '@/services/auth'
 import { showError } from '@/services/notifications'
 import ProductCard from '@/components/ProductCard.vue'
 import CategoryNav from '@/components/CategoryNav.vue'
+
+useHead({
+  title: 'Unsere Produkte – Hofladen Frühwirth',
+  meta: [
+    { name: 'description', content: 'Entdecke unsere vielfältige Auswahl an regionalen Spezialitäten: Fleisch, Wurst, Eier, Obst, Getränke, Aufstriche und Geschenke.' },
+    { property: 'og:title', content: 'Unsere Produkte – Hofladen Frühwirth' },
+  ],
+})
 
 const route = useRoute()
 const products = ref<Product[]>([])

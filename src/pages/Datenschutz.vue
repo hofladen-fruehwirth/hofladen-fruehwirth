@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useHead } from '@unhead/vue'
 
 const router = useRouter()
+
+useHead({
+  title: 'Datenschutz – Hofladen Frühwirth',
+  meta: [
+    { name: 'description', content: 'Datenschutzerklärung des Hofladen Frühwirth in Asparn.' },
+  ],
+})
 </script>
 
 <template>

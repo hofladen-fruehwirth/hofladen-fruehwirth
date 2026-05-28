@@ -1,9 +1,19 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useHead } from '@unhead/vue'
 import { categories } from '@/data/products'
 import { categoryImages, images } from '@/assets/images'
 
 const router = useRouter()
+
+useHead({
+  title: 'Hofladen Frühwirth – Frische regionale Produkte aus Asparn',
+  meta: [
+    { name: 'description', content: 'Hofladen Frühwirth in Asparn – Fleisch, Wurst, Eier, Obst & mehr direkt vom Bauernhof. Regional, saisonal, familiengeführt.' },
+    { property: 'og:title', content: 'Hofladen Frühwirth – Frische Produkte aus Asparn' },
+    { property: 'og:description', content: 'Fleisch, Wurst, Eier, Obst & mehr direkt vom Bauernhof. Regional, saisonal, familiengeführt.' },
+  ],
+})
 </script>
 
 <template>
@@ -49,7 +59,7 @@ const router = useRouter()
           <div class="category-card-image">
             <img :src="categoryImages[cat.id]" :alt="cat.label" />
           </div>
-          <span class="category-card-label">{{ cat.label }}</span>
+          <h3 class="category-card-label">{{ cat.label }}</h3>
         </button>
       </div>
     </div>
